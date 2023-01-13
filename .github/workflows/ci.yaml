@@ -1,0 +1,33 @@
+# Workflow name
+name: "main"
+
+on: [pull_request]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Generate token
+        id: generate_token
+        uses: tibdex/github-app-token@v1
+        with:
+          app_id: ${{ secrets.MULTIPLE_ACCOUNT_CONTROL_APP_ID }}
+          private_key: ${{ secrets.MULTIPLE_ACCOUNT_CONTROL_PAT }}
+
+      - uses: actions/checkout@v3
+        with:
+          token: ${{ steps.generate_token.outputs.token }}
+
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 18
+
+      - uses: pnpm/action-setup@v2.2.4
+        with:
+          version: 7.11.0
+
+      - name: Install Packagess
+        run: pnpm install
+        # env:
+        #   # NODE_AUTH_TOKEN: ${{ steps.generate_token.outputs.token }}
+        #   NODE_AUTH_TOKEN: ${{ secrets.PAT }}
