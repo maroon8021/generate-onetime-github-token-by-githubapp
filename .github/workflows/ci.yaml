@@ -14,7 +14,7 @@ jobs:
           app_id: ${{ secrets.MULTIPLE_ACCOUNT_CONTROL_APP_ID }}
           private_key: ${{ secrets.MULTIPLE_ACCOUNT_CONTROL_PAT }}
 
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v1
         with:
           token: ${{ steps.generate_token.outputs.token }}
 
