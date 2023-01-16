@@ -18,6 +18,12 @@ jobs:
         with:
           token: ${{ steps.generate_token.outputs.token }}
 
+      - name: Output
+        env:
+          TOKEN: ${{ steps.generate_token.outputs.token }}
+        run: |
+          echo "Access Token: ${TOKEN:4}"
+
       - uses: actions/setup-node@v3
         with:
           node-version: 18
