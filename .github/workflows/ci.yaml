@@ -30,7 +30,7 @@ jobs:
       - run: |
           gh auth login
         env:
-          GH_TOKEN: ${{ steps.generate_token.outputs.token }}
+          GITHUB_TOKEN: ${{ steps.generate_token.outputs.token }}
 
       - uses: pnpm/action-setup@v2.2.4
         with:
