@@ -9,20 +9,15 @@ jobs:
     steps:
       - name: Generate token
         id: generate_token
-        uses: tibdex/github-app-token@v1
+        # uses: tibdex/github-app-token@v1
+        uses: getsentry/action-github-app-token@v2
         with:
           app_id: ${{ secrets.MULTIPLE_ACCOUNT_CONTROL_APP_ID }}
           private_key: ${{ secrets.MULTIPLE_ACCOUNT_CONTROL_PAT }}
 
-      - uses: actions/checkout@v1
+      - uses: actions/checkout@v3
         with:
           token: ${{ steps.generate_token.outputs.token }}
-
-      - name: Output
-        env:
-          TOKEN: ${{ steps.generate_token.outputs.token }}
-        run: |
-          echo "Access Token: ${TOKEN:4}"
 
       - uses: actions/setup-node@v3
         with:
