@@ -38,6 +38,9 @@ jobs:
 
           gh auth setup-git
 
+      - run: |
+          git config -l
+
       - uses: pnpm/action-setup@v2.2.4
         with:
           version: 7.11.0
