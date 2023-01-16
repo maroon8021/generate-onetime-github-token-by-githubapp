@@ -21,6 +21,7 @@ jobs:
       - uses: actions/setup-node@v3
         with:
           node-version: 18
+          scope: "@maroon8021"
 
       - uses: pnpm/action-setup@v2.2.4
         with:
