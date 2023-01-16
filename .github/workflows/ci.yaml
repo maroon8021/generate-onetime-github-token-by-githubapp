@@ -28,10 +28,10 @@ jobs:
           curl -H "Accept: application/vnd.github.v3+json" -H "Authorization: token ${{ steps.generate_token.outputs.token }}" https://api.github.com/repos/maroon8021/github-packages-example
 
       - run: |
-          unset GH_TOKEN
+          unset GITHUB_TOKEN
           gh auth login
         env:
-          GH_TOKEN: ${{ steps.generate_token.outputs.token }}
+          GITHUB_TOKEN: ${{ steps.generate_token.outputs.token }}
 
       - uses: pnpm/action-setup@v2.2.4
         with:
