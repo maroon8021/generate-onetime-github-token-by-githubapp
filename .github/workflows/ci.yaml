@@ -34,7 +34,9 @@ jobs:
       #     GITHUB_TOKEN: ${{ steps.generate_token.outputs.token }}
 
       - run: |
-          gh auth login --with-token ${{ steps.generate_token.outputs.token }}
+          echo ${{ steps.generate_token.outputs.token }} | gh auth login --with-token
+
+          gh auth setup-git
 
       - uses: pnpm/action-setup@v2.2.4
         with:
