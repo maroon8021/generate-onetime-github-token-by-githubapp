@@ -17,7 +17,6 @@ jobs:
       - uses: actions/checkout@v1
         with:
           token: ${{ steps.generate_token.outputs.token }}
-          repository: "@maroon8021/github-packages-example"
 
       - uses: actions/setup-node@v3
         with:
@@ -29,7 +28,7 @@ jobs:
           version: 7.11.0
 
       - name: Install Packagess
-        run: npm install
+        run: pnpm install
         env:
           NODE_AUTH_TOKEN: ${{ steps.generate_token.outputs.token }}
         #   NODE_AUTH_TOKEN: ${{ secrets.PAT }}
