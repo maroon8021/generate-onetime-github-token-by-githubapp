@@ -46,7 +46,12 @@ jobs:
           version: 7.11.0
 
       - name: Install Packagess
-        run: pnpm install
+        run: |
+          echo ${{ steps.generate_token.outputs.token }} | gh auth login --with-token
+
+          gh auth setup-git
+
+          pnpm install
         env:
           NODE_AUTH_TOKEN: ${{ steps.generate_token.outputs.token }}
         #   NODE_AUTH_TOKEN: ${{ secrets.PAT }}
