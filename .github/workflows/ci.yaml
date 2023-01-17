@@ -10,6 +10,7 @@ jobs:
       - name: Generate token
         id: generate_token
         uses: tibdex/github-app-token@v1
+        # uses: getsentry/action-github-app-token@v2
         with:
           app_id: ${{ secrets.MULTIPLE_ACCOUNT_CONTROL_APP_ID }}
           private_key: ${{ secrets.MULTIPLE_ACCOUNT_CONTROL_PAT }}
@@ -21,13 +22,36 @@ jobs:
       - uses: actions/setup-node@v3
         with:
           node-version: 18
+          scope: "@maroon8021"
+
+      - run: |
+          curl -H "Accept: application/vnd.github.v3+json" -H "Authorization: token ${{ steps.generate_token.outputs.token }}" https://api.github.com/repos/maroon8021/github-packages-example
+
+      # - run: |
+      #     unset GITHUB_TOKEN
+      #     gh auth login
+      #   env:
+      #     GITHUB_TOKEN: ${{ steps.generate_token.outputs.token }}
+
+      - run: |
+          echo ${{ steps.generate_token.outputs.token }} | gh auth login --with-token
+
+          gh auth setup-git
+
+      - run: |
+          git config -l
 
       - uses: pnpm/action-setup@v2.2.4
         with:
           version: 7.11.0
 
       - name: Install Packagess
-        run: pnpm install
+        run: |
+          echo ${{ steps.generate_token.outputs.token }} | gh auth login --with-token
+
+          gh auth setup-git
+
+          pnpm install
         env:
           NODE_AUTH_TOKEN: ${{ steps.generate_token.outputs.token }}
         #   NODE_AUTH_TOKEN: ${{ secrets.PAT }}
